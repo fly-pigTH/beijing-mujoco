@@ -1,6 +1,7 @@
 // 北京微缩城市 — MuJoCo WASM (official google-deepmind mujoco-js) + Three.js
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import loadMujoco from "./mujoco_wasm.js";
 
 const $ = (s) => document.querySelector(s);
@@ -8,6 +9,12 @@ const sub = $("#loadsub");
 
 // MuJoCo geom type ids
 const T = { PLANE: 0, SPHERE: 2, CAPSULE: 3, ELLIPSOID: 4, CYLINDER: 5, BOX: 6 };
+
+// device tier -> quality / perf trade-offs (mobile-friendly)
+const MOBILE = matchMedia("(pointer:coarse)").matches ||
+  /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+const SHADOWS = !MOBILE;
+const SEG = MOBILE ? { s: [14, 10], c: 14 } : { s: [24, 16], c: 28 };
 
 async function main() {
   // ---- load the official MuJoCo WebAssembly module ----
@@ -19,6 +26,7 @@ async function main() {
   const data = new mujoco.MjData(model);
   mujoco.mj_forward(model, data);
   const names = await (await fetch("./names.json")).json();
+  const NB = names.bodies || {};
 
   const ngeom = model.ngeom;
   const gtype = model.geom_type, gsize = model.geom_size, gmatid = model.geom_matid;
@@ -27,53 +35,76 @@ async function main() {
 
   // ---- three.js scene (MuJoCo is z-up; rotate a root group so +z -> +y) ----
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xbcd6f0);
-  scene.fog = new THREE.Fog(0xbcd6f0, 650, 1900);
+  const sky = new THREE.Color(0xbcd6f0);
+  scene.background = sky;
+  scene.fog = new THREE.Fog(0xc3d8ef, 760, 2200);
 
-  const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 1, 5000);
-  camera.position.set(360, 300, 470);
+  const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 1, 6000);
+  camera.position.set(255, 215, 345);
 
   const renderer = new THREE.WebGLRenderer({ canvas: $("#c"), antialias: true });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, MOBILE ? 1.6 : 2));
   renderer.setSize(innerWidth, innerHeight);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.04;
+  if (SHADOWS) {
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.autoUpdate = false;   // static scene -> render shadows once
+    renderer.shadowMap.needsUpdate = true;
+  }
+
+  // soft image-based lighting for nicer glass / metal
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
   const controls = new OrbitControls(camera, renderer.domElement);
-  controls.target.set(0, 18, 30);
+  controls.target.set(0, 8, 8);
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
   controls.maxPolarAngle = Math.PI * 0.495;
   controls.minDistance = 25;
-  controls.maxDistance = 1800;
+  controls.maxDistance = 2000;
+  controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
 
-  scene.add(new THREE.HemisphereLight(0xffffff, 0x6a7a88, 1.05));
-  const sun = new THREE.DirectionalLight(0xfff4e0, 1.5);
-  sun.position.set(280, 420, 180);
+  scene.add(new THREE.HemisphereLight(0xdcebff, 0x67707a, 0.9));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.22));
+  const sun = new THREE.DirectionalLight(0xfff3df, 2.2);
+  sun.position.set(340, 360, 250);   // lower angle -> longer, readable shadows
+  if (SHADOWS) {
+    sun.castShadow = true;
+    sun.shadow.mapSize.set(2048, 2048);
+    const d = 460;
+    const sc = sun.shadow.camera;
+    sc.left = -d; sc.right = d; sc.top = d; sc.bottom = -d;
+    sc.near = 80; sc.far = 1500;
+    sun.shadow.bias = -0.0006;
+    sun.shadow.normalBias = 0.6;
+  }
   scene.add(sun);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.25));
 
   const root = new THREE.Group();
   root.rotation.x = -Math.PI / 2;     // mujoco z-up -> three y-up
   scene.add(root);
 
-  // ---- ground plane (the mujoco plane geom) ----
-  const tex = (() => {
-    const cv = document.createElement("canvas"); cv.width = cv.height = 256;
+  // ---- ground: a clean soft-vignette plane (no grid lines) ----
+  const gtex = (() => {
+    const cv = document.createElement("canvas"); cv.width = cv.height = 512;
     const x = cv.getContext("2d");
-    x.fillStyle = "#cdc8bc"; x.fillRect(0, 0, 256, 256);
-    x.strokeStyle = "#bdb7a8"; x.lineWidth = 2;
-    for (let i = 0; i <= 256; i += 32) {
-      x.beginPath(); x.moveTo(i, 0); x.lineTo(i, 256); x.stroke();
-      x.beginPath(); x.moveTo(0, i); x.lineTo(256, i); x.stroke();
-    }
+    const grad = x.createRadialGradient(256, 256, 30, 256, 256, 360);
+    grad.addColorStop(0, "#d4cfc1"); grad.addColorStop(1, "#bdb8a9");
+    x.fillStyle = grad; x.fillRect(0, 0, 512, 512);
     const t = new THREE.CanvasTexture(cv);
-    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(60, 60);
+    t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
+    t.colorSpace = THREE.SRGBColorSpace;
     return t;
   })();
   const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(2400, 2400),
-    new THREE.MeshStandardMaterial({ map: tex, roughness: 1, metalness: 0 })
+    new THREE.PlaneGeometry(2600, 2600),
+    new THREE.MeshStandardMaterial({ map: gtex, roughness: 1, metalness: 0 })
   );
+  ground.receiveShadow = SHADOWS;
   root.add(ground);  // PlaneGeometry normal is +z, matches mujoco plane
 
   // ---- bucket geoms by render primitive ----
@@ -86,14 +117,16 @@ async function main() {
     // plane handled above; others ignored
   }
 
-  const cylGeo = new THREE.CylinderGeometry(1, 1, 1, 18);
+  const cylGeo = new THREE.CylinderGeometry(1, 1, 1, SEG.c);
   cylGeo.rotateX(Math.PI / 2);  // axis -> z (matches mujoco cylinder local z)
   const bases = {
     box: new THREE.BoxGeometry(1, 1, 1),
-    sph: new THREE.SphereGeometry(1, 16, 12),
+    sph: new THREE.SphereGeometry(1, SEG.s[0], SEG.s[1]),
     cyl: cylGeo,
   };
-  const mat = () => new THREE.MeshStandardMaterial({ roughness: 0.82, metalness: 0.05 });
+  const mat = () => new THREE.MeshStandardMaterial({
+    roughness: 0.74, metalness: 0.12, envMapIntensity: 0.7,
+  });
 
   const m4 = new THREE.Matrix4(), sc = new THREE.Matrix4(), col = new THREE.Color();
   const meshes = {};
@@ -101,6 +134,8 @@ async function main() {
     const list = buckets[key];
     const im = new THREE.InstancedMesh(bases[key], mat(), list.length);
     im.userData.geom = list;  // instanceId -> geom index
+    im.castShadow = SHADOWS;
+    im.receiveShadow = SHADOWS;
     for (let k = 0; k < list.length; k++) {
       const gi = list[k], p = gi * 3, r = gi * 9, s = gi * 3;
       m4.set(
@@ -119,6 +154,7 @@ async function main() {
       const mi = gmatid[gi];
       if (mi >= 0) col.setRGB(matrgba[mi * 4], matrgba[mi * 4 + 1], matrgba[mi * 4 + 2]);
       else col.setRGB(grgba[gi * 4], grgba[gi * 4 + 1], grgba[gi * 4 + 2]);
+      col.convertSRGBToLinear();
       im.setColorAt(k, col);
     }
     im.instanceMatrix.needsUpdate = true;
@@ -127,36 +163,79 @@ async function main() {
     meshes[key] = im;
   }
 
-  // ---- click -> landmark name (bodies 1..52 are the named landmarks) ----
+  // ---- click / tap -> landmark name + intro (with highlight) ----
   const ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
-  let downXY = null;
   const info = $("#info");
-  renderer.domElement.addEventListener("pointerdown", (e) => { downXY = [e.clientX, e.clientY]; });
-  renderer.domElement.addEventListener("pointerup", (e) => {
-    if (!downXY || Math.hypot(e.clientX - downXY[0], e.clientY - downXY[1]) > 6) return;
+  let downXY = null, downT = 0;
+  let sel = null;  // { mesh, id, color:THREE.Color }
+
+  function clearSel() {
+    if (!sel) return;
+    sel.mesh.setColorAt(sel.id, sel.color);
+    sel.mesh.instanceColor.needsUpdate = true;
+    sel = null;
+  }
+  function highlight(mesh, id) {
+    clearSel();
+    const c = new THREE.Color();
+    mesh.getColorAt(id, c);
+    sel = { mesh, id, color: c.clone() };
+    mesh.setColorAt(id, c.lerp(new THREE.Color(0xffd66b), 0.55));
+    mesh.instanceColor.needsUpdate = true;
+  }
+  function hideInfo() {
+    info.classList.remove("show");
+    document.body.classList.remove("sheet");
+    clearSel();
+  }
+
+  function pick(e) {
     ptr.x = (e.clientX / innerWidth) * 2 - 1;
     ptr.y = -(e.clientY / innerHeight) * 2 + 1;
     ray.setFromCamera(ptr, camera);
     const hits = ray.intersectObjects([meshes.box, meshes.sph, meshes.cyl], false);
-    let found = null;
     for (const h of hits) {
       const gi = h.object.userData.geom[h.instanceId];
-      const bid = gbody[gi];
-      if (bid >= 1 && bid <= names.order.length) { found = names.order[bid - 1]; break; }
+      const rec = NB[String(gbody[gi])];
+      if (rec) {
+        const ic = rec.key && rec.key.startsWith("ic_");
+        info.querySelector(".tag").textContent = ic ? "立交桥 · 交通枢纽" : "北京地标";
+        info.querySelector(".zh").textContent = rec.zh;
+        info.querySelector(".intro").textContent = rec.intro || "";
+        info.classList.add("show");
+        document.body.classList.add("sheet");
+        highlight(h.object, h.instanceId);
+        return;
+      }
     }
-    if (found) {
-      info.querySelector(".zh").textContent = found.zh;
-      info.querySelector(".en").textContent = found.key;
-      info.style.opacity = 1;
-    } else { info.style.opacity = 0; }
+    hideInfo();
+  }
+
+  renderer.domElement.addEventListener("pointerdown", (e) => {
+    downXY = [e.clientX, e.clientY]; downT = performance.now();
   });
+  renderer.domElement.addEventListener("pointerup", (e) => {
+    if (!downXY) return;
+    const moved = Math.hypot(e.clientX - downXY[0], e.clientY - downXY[1]);
+    const tol = e.pointerType === "touch" ? 12 : 6;
+    if (moved <= tol && performance.now() - downT < 600) pick(e);
+    downXY = null;
+  });
+  $("#infoclose").addEventListener("click", hideInfo);
 
   // ---- run ----
   addEventListener("resize", () => {
     camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
     renderer.setSize(innerWidth, innerHeight);
   });
-  $("#stat").innerHTML = `${names.order.length} 地标 · ${ngeom.toLocaleString()} geoms · MuJoCo ${"WASM"}`;
+
+  const nLand = Object.values(NB).filter((r) => !(r.key || "").startsWith("ic_")).length;
+  $("#stat").innerHTML =
+    `${nLand} 地标 · ${ngeom.toLocaleString()} geoms · MuJoCo WASM`;
+  $("#help").innerHTML = MOBILE
+    ? `<b>单指</b> 旋转 · <b>双指</b> 缩放/平移 · <b>点按</b> 看介绍`
+    : `<b>拖拽</b> 旋转 &nbsp;·&nbsp; <b>滚轮</b> 缩放 &nbsp;·&nbsp; <b>右键</b> 平移 &nbsp;·&nbsp; <b>点击建筑</b> 看介绍`;
+
   const load = $("#load");
   load.style.opacity = 0; setTimeout(() => load.remove(), 700);
 
