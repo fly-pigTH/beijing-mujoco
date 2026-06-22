@@ -1,6 +1,7 @@
 # 北京 · MuJoCo 微缩城市 (Beijing Mini-City)
 
-An interactive 3D miniature of Beijing — **52 famous landmarks**, a **100+ road
+An interactive 3D miniature of Beijing — **53 famous landmarks** (incl. 中南海
+with its lakes, 瀛台 island and 新华门 gate), a **100+ road
 network** (ring roads 2–5环, named avenues, radial expressways and 24 realistic
 multi-level 立交桥 interchanges) and **fully-labelled urban fabric**: *every*
 building is clickable and named (offices, malls, residential compounds, hutong
@@ -34,11 +35,11 @@ time the page:
 - **Mobile:** one finger — orbit · two fingers — pinch-zoom / pan
 - **Click / tap a building or 立交桥** — show its name and a short introduction
 
-## Landmarks (52)
+## Landmarks (53)
 
 中轴线 永定门·正阳门·天安门·午门·太和殿·神武门·角楼·景山·鼓楼·钟楼 ·
 广场 人民大会堂·国家博物馆·国家大剧院·人民英雄纪念碑·毛主席纪念堂 ·
-坛庙园林 天坛·太庙·社稷坛·北海白塔·雍和宫·孔庙·恭王府·天宁寺塔·德胜门 ·
+坛庙园林 天坛·太庙·社稷坛·中南海·北海白塔·雍和宫·孔庙·恭王府·天宁寺塔·德胜门 ·
 郊野 佛香阁·十七孔桥·圆明园·八达岭长城·卢沟桥 ·
 CBD CCTV·中国尊·国贸三期·银河SOHO·望京SOHO·银泰·凤凰中心·盘古 ·
 奥林匹克 鸟巢·水立方·冰丝带·玲珑塔·奥林匹克塔·国家会议中心 ·

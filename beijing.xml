@@ -6793,6 +6793,64 @@
       <geom type="box" material="stone" pos="0 -9.3 0.3833" size="5 0.6 0.3833" />
       <geom type="box" material="stone" pos="0 -9.9 0.575" size="5 0.6 0.575" />
     </body>
+    <body name="zhongnanhai" pos="-46 -2 0">
+      <geom type="box" material="redwall" pos="0 23 1.2" size="9.5 0.5 1.2" />
+      <geom type="box" material="tile" pos="0 23 2.52" size="9.7 0.68 0.16" />
+      <geom type="box" material="redwall" pos="-9.5 0 1.2" size="0.5 23 1.2" />
+      <geom type="box" material="tile" pos="-9.5 0 2.52" size="0.68 23.2 0.16" />
+      <geom type="box" material="redwall" pos="9.5 0 1.2" size="0.5 23 1.2" />
+      <geom type="box" material="tile" pos="9.5 0 2.52" size="0.68 23.2 0.16" />
+      <geom type="box" material="redwall" pos="-6.55 -23 1.2" size="2.95 0.5 1.2" />
+      <geom type="box" material="tile" pos="-6.55 -23 2.52" size="3.15 0.68 0.16" />
+      <geom type="box" material="redwall" pos="6.55 -23 1.2" size="2.95 0.5 1.2" />
+      <geom type="box" material="tile" pos="6.55 -23 2.52" size="3.15 0.68 0.16" />
+      <geom type="box" material="green" pos="0 0 0.04" size="8.9 22.4 0.04" />
+      <geom type="ellipsoid" material="water" pos="0 9.5 0.14" size="7.2 9 0.12" />
+      <geom type="ellipsoid" material="water" pos="0 -11 0.14" size="7 8 0.12" />
+      <geom type="ellipsoid" material="greentile" pos="0 -12.5 0.2" size="3.4 3 0.55" />
+      <geom type="box" material="marble" pos="0 -12.5 0.3" size="2 1.7 0.3" />
+      <geom type="box" material="redwall" pos="0 -12.5 1.7" size="1.5 1.2 1.1" />
+      <geom type="box" material="tile" pos="0 -12.5 2.93" size="2.2 1.9 0.14" />
+      <geom type="box" material="tile" pos="0 -12.5 3.3" size="1.08 0.864 0.34" />
+      <geom type="box" material="gold" pos="0 -12.5 3.66" size="1.11 0.14 0.14" />
+      <geom type="box" material="marble" pos="0 -16.6 0.7" size="0.9 1.8 0.18" />
+      <geom type="box" material="marble" pos="5.2 1 0.3" size="3.1 2.3 0.3" />
+      <geom type="box" material="redwall" pos="5.2 1 1.8" size="2.6 1.8 1.2" />
+      <geom type="box" material="graytile" pos="5.2 1 3.13" size="3.3 2.5 0.14" />
+      <geom type="box" material="graytile" pos="5.2 1 3.5" size="1.872 1.296 0.34" />
+      <geom type="box" material="gold" pos="5.2 1 3.86" size="1.924 0.14 0.14" />
+      <geom type="box" material="marble" pos="-5.4 3.5 0.3" size="2.7 2.1 0.3" />
+      <geom type="box" material="grey" pos="-5.4 3.5 1.9" size="2.2 1.6 1.3" />
+      <geom type="box" material="graytile" pos="-5.4 3.5 3.33" size="2.9 2.3 0.14" />
+      <geom type="box" material="graytile" pos="-5.4 3.5 3.7" size="1.584 1.152 0.34" />
+      <geom type="box" material="gold" pos="-5.4 3.5 4.06" size="1.628 0.14 0.14" />
+      <geom type="box" material="marble" pos="0 -23 0.18" size="4.2 1.9 0.18" />
+      <geom type="box" material="redwall" pos="0 -23 1.55" size="3.2 1.4 1.35" />
+      <geom type="box" material="dark" pos="0 -23.05 1" size="0.9 1.5 0.95" />
+      <geom type="box" material="tile" pos="0 -23 3" size="3.7 1.8 0.14" />
+      <geom type="box" material="tile" pos="0 -23 3.45" size="2.6 1.15 0.34" />
+      <geom type="box" material="gold" pos="0 -23 3.82" size="2.7 0.16 0.14" />
+      <geom type="box" material="gold" pos="-2.7 -23 3.95" size="0.16 0.22 0.26" />
+      <geom type="box" material="gold" pos="2.7 -23 3.95" size="0.16 0.22 0.26" />
+      <geom type="box" material="redwall" pos="0 -26.2 1.5" size="4 0.35 1.5" />
+      <geom type="box" material="tile" pos="0 -26.2 3.15" size="4.3 0.5 0.16" />
+      <geom type="cylinder" material="white" pos="-3.4 -24.6 3" size="0.09 3" />
+      <geom type="cylinder" material="white" pos="3.4 -24.6 3" size="0.09 3" />
+      <geom type="cylinder" material="bronze" pos="-7.5 18 0.728" size="0.1 0.728" />
+      <geom type="sphere" material="treedark" pos="-7.5 18 1.872" size="0.884" />
+      <geom type="cylinder" material="bronze" pos="7.5 16 0.728" size="0.1 0.728" />
+      <geom type="sphere" material="treedark" pos="7.5 16 1.872" size="0.884" />
+      <geom type="cylinder" material="bronze" pos="-7.8 -3 0.728" size="0.1 0.728" />
+      <geom type="sphere" material="treedark" pos="-7.8 -3 1.872" size="0.884" />
+      <geom type="cylinder" material="bronze" pos="7.6 -5 0.728" size="0.1 0.728" />
+      <geom type="sphere" material="treedark" pos="7.6 -5 1.872" size="0.884" />
+      <geom type="cylinder" material="bronze" pos="0 19.5 0.728" size="0.1 0.728" />
+      <geom type="sphere" material="treedark" pos="0 19.5 1.872" size="0.884" />
+      <geom type="cylinder" material="bronze" pos="-6.5 -18 0.728" size="0.1 0.728" />
+      <geom type="sphere" material="treedark" pos="-6.5 -18 1.872" size="0.884" />
+      <geom type="cylinder" material="bronze" pos="6.5 -18 0.728" size="0.1 0.728" />
+      <geom type="sphere" material="treedark" pos="6.5 -18 1.872" size="0.884" />
+    </body>
     <geom type="box" material="asphalt" pos="0 -118 0.05" size="87.76 1.5 0.05" euler="0 0 0" />
     <geom type="box" material="curb" pos="0 -119.9 0.16" size="87.76 0.4 0.16" euler="0 0 0" />
     <geom type="box" material="curb" pos="0 -116.1 0.16" size="87.76 0.4 0.16" euler="0 0 0" />
@@ -10143,8 +10201,6 @@
       <geom type="cylinder" material="concrete" pos="7 0 1.95" size="0.3 1.95" />
     </body>
     <geom type="ellipsoid" material="water" pos="-42 42 0.06" size="11 16 0.06" />
-    <geom type="ellipsoid" material="water" pos="-33 2 0.06" size="8 16 0.06" />
-    <geom type="ellipsoid" material="water" pos="-31 -26 0.06" size="8 12 0.06" />
     <geom type="ellipsoid" material="water" pos="-31 72 0.06" size="9 12 0.06" />
     <geom type="ellipsoid" material="water" pos="-225 150 0.06" size="32 24 0.06" />
     <geom type="ellipsoid" material="water" pos="-198 150 0.06" size="16 11 0.06" />
@@ -11333,24 +11389,7 @@
       <geom type="box" material="steel" pos="5.6 0 12" size="0.05 3.6 12" />
       <geom type="box" material="grey" pos="0 0 24.25" size="3.64 2.34 0.25" />
     </body>
-    <body name="fab138" pos="-69.87 -32.32 0">
-      <geom type="box" material="brick" pos="0 5.6 1" size="5.6 1.4 1" />
-      <geom type="box" material="roofgrey" pos="0 4.9 2.4" size="5.6 0.8062 0.11" euler="29.74 0 0" />
-      <geom type="box" material="roofgrey" pos="0 6.3 2.4" size="5.6 0.8062 0.11" euler="150.3 0 0" />
-      <geom type="box" material="brick" pos="0 -5.6 1" size="5.6 1.4 1" />
-      <geom type="box" material="roofgrey" pos="0 -6.3 2.4" size="5.6 0.8062 0.11" euler="29.74 0 0" />
-      <geom type="box" material="roofgrey" pos="0 -4.9 2.4" size="5.6 0.8062 0.11" euler="150.3 0 0" />
-      <geom type="box" material="brick" pos="5.6 0 1" size="1.4 5.6 1" />
-      <geom type="box" material="roofgrey" pos="4.9 0 2.4" size="0.8062 5.6 0.11" euler="0 -29.74 0" />
-      <geom type="box" material="roofgrey" pos="6.3 0 2.4" size="0.8062 5.6 0.11" euler="0 -150.3 0" />
-      <geom type="box" material="brick" pos="-5.6 0 1" size="1.4 5.6 1" />
-      <geom type="box" material="roofgrey" pos="-6.3 0 2.4" size="0.8062 5.6 0.11" euler="0 -29.74 0" />
-      <geom type="box" material="roofgrey" pos="-4.9 0 2.4" size="0.8062 5.6 0.11" euler="0 -150.3 0" />
-      <geom type="box" material="red" pos="3.15 -5.6 1.2" size="0.7 1.4 1.2" />
-      <geom type="cylinder" material="bronze" pos="0 0 0.616" size="0.1 0.616" />
-      <geom type="sphere" material="treedark" pos="0 0 1.584" size="0.748" />
-    </body>
-    <body name="fab139" pos="-70.71 48.1 0" euler="0 0 90">
+    <body name="fab138" pos="-70.71 48.1 0" euler="0 0 90">
       <geom type="box" material="brick" pos="0 4.6 1" size="4.6 1.4 1" />
       <geom type="box" material="roofgrey" pos="0 3.9 2.4" size="4.6 0.8062 0.11" euler="29.74 0 0" />
       <geom type="box" material="roofgrey" pos="0 5.3 2.4" size="4.6 0.8062 0.11" euler="150.3 0 0" />
@@ -11367,7 +11406,7 @@
       <geom type="cylinder" material="bronze" pos="0 0 0.616" size="0.1 0.616" />
       <geom type="sphere" material="treedark" pos="0 0 1.584" size="0.748" />
     </body>
-    <body name="fab140" pos="-72.11 173.3 0">
+    <body name="fab139" pos="-72.11 173.3 0">
       <geom type="box" material="tan" pos="0 0 17" size="3.2 3.2 17" />
       <geom type="box" material="glasslt" pos="0 -3.2 2" size="2.752 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 3.2 2" size="2.752 0.06 0.4" />
@@ -11393,7 +11432,7 @@
       <geom type="box" material="glasslt" pos="0 3.2 33" size="2.752 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 34.2" size="1.76 1.76 0.2" />
     </body>
-    <body name="fab141" pos="-55.49 -189.4 0" euler="0 0 3">
+    <body name="fab140" pos="-55.49 -189.4 0" euler="0 0 3">
       <geom type="box" material="concrete" pos="0 0 13" size="3.2 3.2 13" />
       <geom type="box" material="glasslt" pos="0 -3.2 2" size="2.752 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 3.2 2" size="2.752 0.06 0.4" />
@@ -11413,24 +11452,7 @@
       <geom type="box" material="glasslt" pos="0 3.2 25" size="2.752 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 26.2" size="1.76 1.76 0.2" />
     </body>
-    <body name="fab142" pos="-55.3 -19.71 0">
-      <geom type="box" material="brick" pos="0 3.6 1" size="3.6 1.4 1" />
-      <geom type="box" material="roofgrey" pos="0 2.9 2.4" size="3.6 0.8062 0.11" euler="29.74 0 0" />
-      <geom type="box" material="roofgrey" pos="0 4.3 2.4" size="3.6 0.8062 0.11" euler="150.3 0 0" />
-      <geom type="box" material="brick" pos="0 -3.6 1" size="3.6 1.4 1" />
-      <geom type="box" material="roofgrey" pos="0 -4.3 2.4" size="3.6 0.8062 0.11" euler="29.74 0 0" />
-      <geom type="box" material="roofgrey" pos="0 -2.9 2.4" size="3.6 0.8062 0.11" euler="150.3 0 0" />
-      <geom type="box" material="brick" pos="3.6 0 1" size="1.4 3.6 1" />
-      <geom type="box" material="roofgrey" pos="2.9 0 2.4" size="0.8062 3.6 0.11" euler="0 -29.74 0" />
-      <geom type="box" material="roofgrey" pos="4.3 0 2.4" size="0.8062 3.6 0.11" euler="0 -150.3 0" />
-      <geom type="box" material="brick" pos="-3.6 0 1" size="1.4 3.6 1" />
-      <geom type="box" material="roofgrey" pos="-4.3 0 2.4" size="0.8062 3.6 0.11" euler="0 -29.74 0" />
-      <geom type="box" material="roofgrey" pos="-2.9 0 2.4" size="0.8062 3.6 0.11" euler="0 -150.3 0" />
-      <geom type="box" material="red" pos="2.25 -3.6 1.2" size="0.7 1.4 1.2" />
-      <geom type="cylinder" material="bronze" pos="0 0 0.616" size="0.1 0.616" />
-      <geom type="sphere" material="treedark" pos="0 0 1.584" size="0.748" />
-    </body>
-    <body name="fab143" pos="-53.8 115 0" euler="0 0 -9">
+    <body name="fab141" pos="-53.8 115 0" euler="0 0 -9">
       <geom type="box" material="beige" pos="0 0 4.5" size="6 2.2 4.5" />
       <geom type="box" material="glasslt" pos="0 -2.2 1.3" size="5.4 0.05 0.32" />
       <geom type="box" material="glasslt" pos="0 2.2 1.3" size="5.4 0.05 0.32" />
@@ -11440,7 +11462,7 @@
       <geom type="box" material="glasslt" pos="0 2.2 8.1" size="5.4 0.05 0.32" />
       <geom type="box" material="beige" pos="0 0 9.12" size="6.08 2.28 0.12" />
     </body>
-    <body name="fab144" pos="-36.8 -240.7 0" euler="0 0 6">
+    <body name="fab142" pos="-36.8 -240.7 0" euler="0 0 6">
       <geom type="box" material="beige" pos="0 0 9" size="3.2 3.2 9" />
       <geom type="box" material="glasslt" pos="0 -3.2 2" size="2.752 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 3.2 2" size="2.752 0.06 0.4" />
@@ -11456,7 +11478,7 @@
       <geom type="box" material="glasslt" pos="0 3.2 17" size="2.752 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 18.2" size="1.76 1.76 0.2" />
     </body>
-    <body name="fab145" pos="-38.49 -207.4 0" euler="0 0 3">
+    <body name="fab143" pos="-38.49 -207.4 0" euler="0 0 3">
       <geom type="box" material="concrete" pos="0 0 17" size="3.2 3.2 17" />
       <geom type="box" material="glasslt" pos="0 -3.2 2" size="2.752 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 3.2 2" size="2.752 0.06 0.4" />
@@ -11482,7 +11504,7 @@
       <geom type="box" material="glasslt" pos="0 3.2 33" size="2.752 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 34.2" size="1.76 1.76 0.2" />
     </body>
-    <body name="fab146" pos="-33.16 -156.8 0" euler="0 0 -9">
+    <body name="fab144" pos="-33.16 -156.8 0" euler="0 0 -9">
       <geom type="box" material="darkglass" pos="0 0 10" size="4.6 3.6 10" />
       <geom type="box" material="steel" pos="0 -3.6 0" size="4.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 3.6 0" size="4.6 0.04 0.05" />
@@ -11504,7 +11526,7 @@
       <geom type="box" material="steel" pos="4.6 0 10" size="0.05 3.6 10" />
       <geom type="box" material="grey" pos="0 0 20.25" size="2.99 2.34 0.25" />
     </body>
-    <body name="fab147" pos="-38.49 -135.9 0" euler="0 0 6">
+    <body name="fab145" pos="-38.49 -135.9 0" euler="0 0 6">
       <geom type="box" material="concrete" pos="0 0 6.5" size="8 2.2 6.5" />
       <geom type="box" material="glasslt" pos="0 -2.2 1.3" size="7.2 0.05 0.32" />
       <geom type="box" material="glasslt" pos="0 2.2 1.3" size="7.2 0.05 0.32" />
@@ -11518,7 +11540,7 @@
       <geom type="box" material="glasslt" pos="0 2.2 12.1" size="7.2 0.05 0.32" />
       <geom type="box" material="concrete" pos="0 0 13.12" size="8.08 2.28 0.12" />
     </body>
-    <body name="fab148" pos="-21.68 -188.5 0" euler="0 0 3">
+    <body name="fab146" pos="-21.68 -188.5 0" euler="0 0 3">
       <geom type="box" material="beige" pos="0 0 13" size="3.2 3.2 13" />
       <geom type="box" material="glasslt" pos="0 -3.2 2" size="2.752 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 3.2 2" size="2.752 0.06 0.4" />
@@ -11538,7 +11560,7 @@
       <geom type="box" material="glasslt" pos="0 3.2 25" size="2.752 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 26.2" size="1.76 1.76 0.2" />
     </body>
-    <body name="fab149" pos="-1.964 -218.2 0" euler="0 0 9">
+    <body name="fab147" pos="-1.964 -218.2 0" euler="0 0 9">
       <geom type="box" material="grey" pos="0 0 15" size="4.2 4.2 15" />
       <geom type="box" material="glasslt" pos="0 -4.2 2" size="3.612 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 4.2 2" size="3.612 0.06 0.4" />
@@ -11562,7 +11584,7 @@
       <geom type="box" material="glasslt" pos="0 4.2 29" size="3.612 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 30.2" size="2.31 2.31 0.2" />
     </body>
-    <body name="fab150" pos="16.63 -191.5 0">
+    <body name="fab148" pos="16.63 -191.5 0">
       <geom type="box" material="glasslt" pos="0 0 16" size="4.6 4.6 16" />
       <geom type="box" material="steel" pos="0 -4.6 0" size="4.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 4.6 0" size="4.6 0.04 0.05" />
@@ -11594,7 +11616,7 @@
       <geom type="box" material="steel" pos="4.6 0 16" size="0.05 4.6 16" />
       <geom type="box" material="grey" pos="0 0 32.25" size="2.99 2.99 0.25" />
     </body>
-    <body name="fab151" pos="33.63 -206.6 0" euler="0 0 6">
+    <body name="fab149" pos="33.63 -206.6 0" euler="0 0 6">
       <geom type="box" material="glasslt" pos="0 0 16" size="4.6 5.6 16" />
       <geom type="box" material="steel" pos="0 -5.6 0" size="4.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 5.6 0" size="4.6 0.04 0.05" />
@@ -11626,7 +11648,7 @@
       <geom type="box" material="steel" pos="4.6 0 16" size="0.05 5.6 16" />
       <geom type="box" material="grey" pos="0 0 32.25" size="2.99 3.64 0.25" />
     </body>
-    <body name="fab152" pos="50.44 -190.6 0">
+    <body name="fab150" pos="50.44 -190.6 0">
       <geom type="box" material="darkglass" pos="0 0 16" size="4.6 5.6 16" />
       <geom type="box" material="steel" pos="0 -5.6 0" size="4.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 5.6 0" size="4.6 0.04 0.05" />
@@ -11658,7 +11680,7 @@
       <geom type="box" material="steel" pos="4.6 0 16" size="0.05 5.6 16" />
       <geom type="box" material="grey" pos="0 0 32.25" size="2.99 3.64 0.25" />
     </body>
-    <body name="fab153" pos="65.38 -32.32 0">
+    <body name="fab151" pos="65.38 -32.32 0">
       <geom type="box" material="brick" pos="0 5.6 1" size="5.6 1.4 1" />
       <geom type="box" material="roofgrey" pos="0 4.9 2.4" size="5.6 0.8062 0.11" euler="29.74 0 0" />
       <geom type="box" material="roofgrey" pos="0 6.3 2.4" size="5.6 0.8062 0.11" euler="150.3 0 0" />
@@ -11675,7 +11697,7 @@
       <geom type="cylinder" material="bronze" pos="0 0 0.616" size="0.1 0.616" />
       <geom type="sphere" material="treedark" pos="0 0 1.584" size="0.748" />
     </body>
-    <body name="fab154" pos="80.33 -217.2 0" euler="0 0 -3">
+    <body name="fab152" pos="80.33 -217.2 0" euler="0 0 -3">
       <geom type="box" material="beige" pos="0 0 17" size="3.2 3.2 17" />
       <geom type="box" material="glasslt" pos="0 -3.2 2" size="2.752 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 3.2 2" size="2.752 0.06 0.4" />
@@ -11701,7 +11723,7 @@
       <geom type="box" material="glasslt" pos="0 3.2 33" size="2.752 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 34.2" size="1.76 1.76 0.2" />
     </body>
-    <body name="fab155" pos="82.29 -199.5 0">
+    <body name="fab153" pos="82.29 -199.5 0">
       <geom type="box" material="tan" pos="0 0 19" size="4.2 4.2 19" />
       <geom type="box" material="glasslt" pos="0 -4.2 2" size="3.612 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 4.2 2" size="3.612 0.06 0.4" />
@@ -11729,12 +11751,12 @@
       <geom type="box" material="glasslt" pos="0 4.2 37" size="3.612 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 38.2" size="2.31 2.31 0.2" />
     </body>
-    <body name="fab156" pos="83.13 -184.7 0" euler="0 0 3">
+    <body name="fab154" pos="83.13 -184.7 0" euler="0 0 3">
       <geom type="box" material="beige" pos="0 0 3" size="9 7 3" />
       <geom type="box" material="glasslt" pos="0 -7 3" size="8.55 0.06 2.52" />
       <geom type="box" material="steel" pos="0 0 6.12" size="6.3 4.9 0.12" />
     </body>
-    <body name="fab157" pos="82.29 -70.43 0" euler="0 0 90">
+    <body name="fab155" pos="82.29 -70.43 0" euler="0 0 90">
       <geom type="box" material="brick" pos="0 4.6 1" size="4.6 1.4 1" />
       <geom type="box" material="roofgrey" pos="0 3.9 2.4" size="4.6 0.8062 0.11" euler="29.74 0 0" />
       <geom type="box" material="roofgrey" pos="0 5.3 2.4" size="4.6 0.8062 0.11" euler="150.3 0 0" />
@@ -11751,7 +11773,7 @@
       <geom type="cylinder" material="bronze" pos="0 0 0.616" size="0.1 0.616" />
       <geom type="sphere" material="treedark" pos="0 0 1.584" size="0.748" />
     </body>
-    <body name="fab158" pos="84.72 -37.83 0" euler="0 0 90">
+    <body name="fab156" pos="84.72 -37.83 0" euler="0 0 90">
       <geom type="box" material="brick" pos="0 6.6 1" size="6.6 1.4 1" />
       <geom type="box" material="roofgrey" pos="0 5.9 2.4" size="6.6 0.8062 0.11" euler="29.74 0 0" />
       <geom type="box" material="roofgrey" pos="0 7.3 2.4" size="6.6 0.8062 0.11" euler="150.3 0 0" />
@@ -11768,7 +11790,7 @@
       <geom type="cylinder" material="bronze" pos="0 0 0.616" size="0.1 0.616" />
       <geom type="sphere" material="treedark" pos="0 0 1.584" size="0.748" />
     </body>
-    <body name="fab159" pos="82.19 -13.54 0">
+    <body name="fab157" pos="82.19 -13.54 0">
       <geom type="box" material="brick" pos="0 3.6 1" size="3.6 1.4 1" />
       <geom type="box" material="roofgrey" pos="0 2.9 2.4" size="3.6 0.8062 0.11" euler="29.74 0 0" />
       <geom type="box" material="roofgrey" pos="0 4.3 2.4" size="3.6 0.8062 0.11" euler="150.3 0 0" />
@@ -11785,7 +11807,7 @@
       <geom type="cylinder" material="bronze" pos="0 0 0.616" size="0.1 0.616" />
       <geom type="sphere" material="treedark" pos="0 0 1.584" size="0.748" />
     </body>
-    <body name="fab160" pos="84.81 119.4 0" euler="0 0 9">
+    <body name="fab158" pos="84.81 119.4 0" euler="0 0 9">
       <geom type="box" material="glassgrn" pos="0 0 8" size="3.6 4.6 8" />
       <geom type="box" material="steel" pos="0 -4.6 0" size="3.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 4.6 0" size="3.6 0.04 0.05" />
@@ -11805,7 +11827,7 @@
       <geom type="box" material="steel" pos="3.6 0 8" size="0.05 4.6 8" />
       <geom type="box" material="grey" pos="0 0 16.25" size="2.34 2.99 0.25" />
     </body>
-    <body name="fab161" pos="101.6 136.4 0" euler="0 0 3">
+    <body name="fab159" pos="101.6 136.4 0" euler="0 0 3">
       <geom type="box" material="glasslt" pos="0 0 12" size="5.6 5.6 12" />
       <geom type="box" material="steel" pos="0 -5.6 0" size="5.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 5.6 0" size="5.6 0.04 0.05" />
@@ -11831,12 +11853,12 @@
       <geom type="box" material="steel" pos="5.6 0 12" size="0.05 5.6 12" />
       <geom type="box" material="grey" pos="0 0 24.25" size="3.64 3.64 0.25" />
     </body>
-    <body name="fab162" pos="117.4 173.8 0" euler="0 0 -9">
+    <body name="fab160" pos="117.4 173.8 0" euler="0 0 -9">
       <geom type="box" material="beige" pos="0 0 4" size="8 8 4" />
       <geom type="box" material="glasslt" pos="0 -8 4" size="7.6 0.06 3.36" />
       <geom type="box" material="steel" pos="0 0 8.12" size="5.6 5.6 0.12" />
     </body>
-    <body name="fab163" pos="134.4 -155.4 0" euler="0 0 6">
+    <body name="fab161" pos="134.4 -155.4 0" euler="0 0 6">
       <geom type="box" material="brick2" pos="0 0 5.5" size="9 3.2 5.5" />
       <geom type="box" material="glasslt" pos="0 -3.2 1.3" size="8.1 0.05 0.32" />
       <geom type="box" material="glasslt" pos="0 3.2 1.3" size="8.1 0.05 0.32" />
@@ -11848,7 +11870,7 @@
       <geom type="box" material="glasslt" pos="0 3.2 10.1" size="8.1 0.05 0.32" />
       <geom type="box" material="brick2" pos="0 0 11.12" size="9.08 3.28 0.12" />
     </body>
-    <body name="fab164" pos="151 -199.8 0" euler="0 0 -3">
+    <body name="fab162" pos="151 -199.8 0" euler="0 0 -3">
       <geom type="box" material="grey" pos="0 0 15" size="4.2 4.2 15" />
       <geom type="box" material="glasslt" pos="0 -4.2 2" size="3.612 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 4.2 2" size="3.612 0.06 0.4" />
@@ -11872,12 +11894,12 @@
       <geom type="box" material="glasslt" pos="0 4.2 29" size="3.612 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 30.2" size="2.31 2.31 0.2" />
     </body>
-    <body name="fab165" pos="151.3 184.6 0" euler="0 0 -9">
+    <body name="fab163" pos="151.3 184.6 0" euler="0 0 -9">
       <geom type="box" material="beige" pos="0 0 3" size="7 8 3" />
       <geom type="box" material="glasslt" pos="0 -8 3" size="6.65 0.06 2.52" />
       <geom type="box" material="steel" pos="0 0 6.12" size="4.9 5.6 0.12" />
     </body>
-    <body name="fab166" pos="169.8 -240.2 0" euler="0 0 -9">
+    <body name="fab164" pos="169.8 -240.2 0" euler="0 0 -9">
       <geom type="box" material="glassgrn" pos="0 0 16" size="4.6 3.6 16" />
       <geom type="box" material="steel" pos="0 -3.6 0" size="4.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 3.6 0" size="4.6 0.04 0.05" />
@@ -11909,7 +11931,7 @@
       <geom type="box" material="steel" pos="4.6 0 16" size="0.05 3.6 16" />
       <geom type="box" material="grey" pos="0 0 32.25" size="2.99 2.34 0.25" />
     </body>
-    <body name="fab167" pos="166.3 -202.2 0" euler="0 0 3">
+    <body name="fab165" pos="166.3 -202.2 0" euler="0 0 3">
       <geom type="box" material="beige" pos="0 0 9" size="3.2 3.2 9" />
       <geom type="box" material="glasslt" pos="0 -3.2 2" size="2.752 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 3.2 2" size="2.752 0.06 0.4" />
@@ -11925,7 +11947,7 @@
       <geom type="box" material="glasslt" pos="0 3.2 17" size="2.752 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 18.2" size="1.76 1.76 0.2" />
     </body>
-    <body name="fab168" pos="186.9 -173.1 0">
+    <body name="fab166" pos="186.9 -173.1 0">
       <geom type="box" material="darkglass" pos="0 0 10" size="4.6 3.6 10" />
       <geom type="box" material="steel" pos="0 -3.6 0" size="4.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 3.6 0" size="4.6 0.04 0.05" />
@@ -11947,7 +11969,7 @@
       <geom type="box" material="steel" pos="4.6 0 10" size="0.05 3.6 10" />
       <geom type="box" material="grey" pos="0 0 20.25" size="2.99 2.34 0.25" />
     </body>
-    <body name="fab169" pos="182.6 139.6 0" euler="0 0 -9">
+    <body name="fab167" pos="182.6 139.6 0" euler="0 0 -9">
       <geom type="box" material="brick2" pos="0 0 15" size="4.2 4.2 15" />
       <geom type="box" material="glasslt" pos="0 -4.2 2" size="3.612 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 4.2 2" size="3.612 0.06 0.4" />
@@ -11971,7 +11993,7 @@
       <geom type="box" material="glasslt" pos="0 4.2 29" size="3.612 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 30.2" size="2.31 2.31 0.2" />
     </body>
-    <body name="fab170" pos="186.8 153.4 0" euler="0 0 -9">
+    <body name="fab168" pos="186.8 153.4 0" euler="0 0 -9">
       <geom type="box" material="glassgrn" pos="0 0 12" size="5.6 5.6 12" />
       <geom type="box" material="steel" pos="0 -5.6 0" size="5.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 5.6 0" size="5.6 0.04 0.05" />
@@ -11997,7 +12019,7 @@
       <geom type="box" material="steel" pos="5.6 0 12" size="0.05 5.6 12" />
       <geom type="box" material="grey" pos="0 0 24.25" size="3.64 3.64 0.25" />
     </body>
-    <body name="fab171" pos="199.7 -208 0">
+    <body name="fab169" pos="199.7 -208 0">
       <geom type="box" material="grey" pos="0 0 9" size="3.2 3.2 9" />
       <geom type="box" material="glasslt" pos="0 -3.2 2" size="2.752 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 3.2 2" size="2.752 0.06 0.4" />
@@ -12013,7 +12035,7 @@
       <geom type="box" material="glasslt" pos="0 3.2 17" size="2.752 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 18.2" size="1.76 1.76 0.2" />
     </body>
-    <body name="fab172" pos="199.9 -171.7 0" euler="0 0 9">
+    <body name="fab170" pos="199.9 -171.7 0" euler="0 0 9">
       <geom type="box" material="tan" pos="0 0 17" size="3.2 3.2 17" />
       <geom type="box" material="glasslt" pos="0 -3.2 2" size="2.752 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 3.2 2" size="2.752 0.06 0.4" />
@@ -12039,7 +12061,7 @@
       <geom type="box" material="glasslt" pos="0 3.2 33" size="2.752 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 34.2" size="1.76 1.76 0.2" />
     </body>
-    <body name="fab173" pos="199.4 -150.1 0" euler="0 0 3">
+    <body name="fab171" pos="199.4 -150.1 0" euler="0 0 3">
       <geom type="box" material="tan" pos="0 0 19" size="4.2 4.2 19" />
       <geom type="box" material="glasslt" pos="0 -4.2 2" size="3.612 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 4.2 2" size="3.612 0.06 0.4" />
@@ -12067,7 +12089,7 @@
       <geom type="box" material="glasslt" pos="0 4.2 37" size="3.612 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 38.2" size="2.31 2.31 0.2" />
     </body>
-    <body name="fab174" pos="203.1 -136.3 0">
+    <body name="fab172" pos="203.1 -136.3 0">
       <geom type="box" material="blueglass" pos="0 0 8" size="3.6 4.6 8" />
       <geom type="box" material="steel" pos="0 -4.6 0" size="3.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 4.6 0" size="3.6 0.04 0.05" />
@@ -12087,7 +12109,7 @@
       <geom type="box" material="steel" pos="3.6 0 8" size="0.05 4.6 8" />
       <geom type="box" material="grey" pos="0 0 16.25" size="2.34 2.99 0.25" />
     </body>
-    <body name="fab175" pos="200.6 -36.8 0" euler="0 0 6">
+    <body name="fab173" pos="200.6 -36.8 0" euler="0 0 6">
       <geom type="box" material="darkglass" pos="0 0 31.5" size="3.6 4.6 31.5" />
       <geom type="box" material="steel" pos="0 -4.6 0" size="3.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 4.6 0" size="3.6 0.04 0.05" />
@@ -12143,7 +12165,7 @@
       <geom type="box" material="steel" pos="3.6 0 31.5" size="0.05 4.6 31.5" />
       <geom type="box" material="grey" pos="0 0 63.25" size="2.34 2.99 0.25" />
     </body>
-    <body name="fab176" pos="201.3 48.48 0" euler="0 0 -6">
+    <body name="fab174" pos="201.3 48.48 0" euler="0 0 -6">
       <geom type="box" material="glasslt" pos="0 0 21" size="3.6 3.6 21" />
       <geom type="box" material="steel" pos="0 -3.6 0" size="3.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 3.6 0" size="3.6 0.04 0.05" />
@@ -12183,7 +12205,7 @@
       <geom type="box" material="steel" pos="3.6 0 21" size="0.05 3.6 21" />
       <geom type="box" material="grey" pos="0 0 42.25" size="2.34 2.34 0.25" />
     </body>
-    <body name="fab177" pos="200.8 71.18 0" euler="0 0 -6">
+    <body name="fab175" pos="200.8 71.18 0" euler="0 0 -6">
       <geom type="box" material="tan" pos="0 0 9" size="3.2 3.2 9" />
       <geom type="box" material="glasslt" pos="0 -3.2 2" size="2.752 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 3.2 2" size="2.752 0.06 0.4" />
@@ -12199,7 +12221,7 @@
       <geom type="box" material="glasslt" pos="0 3.2 17" size="2.752 0.06 0.4" />
       <geom type="box" material="grey" pos="0 0 18.2" size="1.76 1.76 0.2" />
     </body>
-    <body name="fab178" pos="203.3 165.7 0">
+    <body name="fab176" pos="203.3 165.7 0">
       <geom type="box" material="cyanglass" pos="0 0 16" size="4.6 3.6 16" />
       <geom type="box" material="steel" pos="0 -3.6 0" size="4.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 3.6 0" size="4.6 0.04 0.05" />
@@ -12231,7 +12253,7 @@
       <geom type="box" material="steel" pos="4.6 0 16" size="0.05 3.6 16" />
       <geom type="box" material="grey" pos="0 0 32.25" size="2.99 2.34 0.25" />
     </body>
-    <body name="fab179" pos="220.7 -33.16 0" euler="0 0 3">
+    <body name="fab177" pos="220.7 -33.16 0" euler="0 0 3">
       <geom type="box" material="cyanglass" pos="0 0 24.5" size="4.6 3.6 24.5" />
       <geom type="box" material="steel" pos="0 -3.6 0" size="4.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 3.6 0" size="4.6 0.04 0.05" />
@@ -12275,7 +12297,7 @@
       <geom type="box" material="steel" pos="4.6 0 24.5" size="0.05 3.6 24.5" />
       <geom type="box" material="grey" pos="0 0 49.25" size="2.99 2.34 0.25" />
     </body>
-    <body name="fab180" pos="216.6 36.52 0" euler="0 0 -9">
+    <body name="fab178" pos="216.6 36.52 0" euler="0 0 -9">
       <geom type="box" material="glassgrn" pos="0 0 31.5" size="3.6 4.6 31.5" />
       <geom type="box" material="steel" pos="0 -4.6 0" size="3.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 4.6 0" size="3.6 0.04 0.05" />
@@ -12331,7 +12353,7 @@
       <geom type="box" material="steel" pos="3.6 0 31.5" size="0.05 4.6 31.5" />
       <geom type="box" material="grey" pos="0 0 63.25" size="2.34 2.99 0.25" />
     </body>
-    <body name="fab181" pos="219.7 54.93 0" euler="0 0 6">
+    <body name="fab179" pos="219.7 54.93 0" euler="0 0 6">
       <geom type="box" material="glasslt" pos="0 0 24.5" size="4.6 3.6 24.5" />
       <geom type="box" material="steel" pos="0 -3.6 0" size="4.6 0.04 0.05" />
       <geom type="box" material="steel" pos="0 3.6 0" size="4.6 0.04 0.05" />
@@ -12375,7 +12397,7 @@
       <geom type="box" material="steel" pos="4.6 0 24.5" size="0.05 3.6 24.5" />
       <geom type="box" material="grey" pos="0 0 49.25" size="2.99 2.34 0.25" />
     </body>
-    <body name="fab182" pos="251.7 205.5 0" euler="0 0 -6">
+    <body name="fab180" pos="251.7 205.5 0" euler="0 0 -6">
       <geom type="box" material="beige" pos="0 0 19" size="4.2 4.2 19" />
       <geom type="box" material="glasslt" pos="0 -4.2 2" size="3.612 0.06 0.4" />
       <geom type="box" material="glasslt" pos="0 4.2 2" size="3.612 0.06 0.4" />
