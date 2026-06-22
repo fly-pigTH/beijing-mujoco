@@ -14,7 +14,9 @@ const T = { PLANE: 0, SPHERE: 2, CAPSULE: 3, ELLIPSOID: 4, CYLINDER: 5, BOX: 6 }
 const MOBILE = matchMedia("(pointer:coarse)").matches ||
   /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
 const SHADOWS = !MOBILE;
-const SEG = MOBILE ? { s: [14, 10], c: 14 } : { s: [24, 16], c: 28 };
+// curve tessellation — high facet counts for smooth domes / towers / shells.
+// (one shared base geometry per primitive, so cost stays low even at 12k geoms)
+const SEG = MOBILE ? { s: [28, 18], c: 32 } : { s: [56, 36], c: 64 };
 
 async function main() {
   // ---- load the official MuJoCo WebAssembly module ----
@@ -200,8 +202,7 @@ async function main() {
       const gi = h.object.userData.geom[h.instanceId];
       const rec = NB[String(gbody[gi])];
       if (rec) {
-        const ic = rec.key && rec.key.startsWith("ic_");
-        info.querySelector(".tag").textContent = ic ? "立交桥 · 交通枢纽" : "北京地标";
+        info.querySelector(".tag").textContent = rec.tag || "北京";
         info.querySelector(".zh").textContent = rec.zh;
         info.querySelector(".intro").textContent = rec.intro || "";
         info.classList.add("show");
@@ -231,9 +232,11 @@ async function main() {
     renderer.setSize(innerWidth, innerHeight);
   });
 
-  const nLand = Object.values(NB).filter((r) => !(r.key || "").startsWith("ic_")).length;
+  const recs = Object.values(NB);
+  const nLand = recs.filter((r) => r.tag === "北京地标").length;
+  const nNamed = recs.length;
   $("#stat").innerHTML =
-    `${nLand} 地标 · ${ngeom.toLocaleString()} geoms · MuJoCo WASM`;
+    `${nLand} 地标 · ${nNamed} 可点建筑 · ${ngeom.toLocaleString()} geoms · MuJoCo WASM`;
   $("#help").innerHTML = MOBILE
     ? `<b>单指</b> 旋转 · <b>双指</b> 缩放/平移 · <b>点按</b> 看介绍`
     : `<b>拖拽</b> 旋转 &nbsp;·&nbsp; <b>滚轮</b> 缩放 &nbsp;·&nbsp; <b>右键</b> 平移 &nbsp;·&nbsp; <b>点击建筑</b> 看介绍`;

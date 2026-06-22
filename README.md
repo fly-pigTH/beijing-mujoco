@@ -1,12 +1,14 @@
 # 北京 · MuJoCo 微缩城市 (Beijing Mini-City)
 
-An interactive 3D miniature of Beijing — **52 named landmarks**, a **100+ road
-network** (ring roads 2–5环, named avenues, radial expressways and 24 clickable
-立交桥 interchanges) plus procedural urban fabric (hutong courtyards, residential
-& office blocks, lakes, parks) — placed at their real relative geographic
-positions and rendered **live in the browser** by the official
-**MuJoCo WebAssembly** module. Soft shadows, image-based lighting and a clean
-map-style ground; fully **touch / mobile** friendly.
+An interactive 3D miniature of Beijing — **52 famous landmarks**, a **100+ road
+network** (ring roads 2–5环, named avenues, radial expressways and 24 realistic
+multi-level 立交桥 interchanges) and **fully-labelled urban fabric**: *every*
+building is clickable and named (offices, malls, residential compounds, hutong
+courtyards), so **~158 named, clickable buildings** in all — placed at their real
+relative geographic positions and rendered **live in the browser** by the
+official **MuJoCo WebAssembly** module. High-tessellation smooth curves, soft
+shadows, image-based lighting and a clean map-style ground with kerbed,
+lane-marked roads; fully **touch / mobile** friendly.
 
 🔗 **Live:** https://fly-pigth.github.io/beijing-mujoco/
 
