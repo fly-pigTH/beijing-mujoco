@@ -20,12 +20,14 @@ async function main() {
   // ---- load the official MuJoCo WebAssembly module ----
   const mujoco = await loadMujoco();
   sub.textContent = "加载模型 beijing.xml…";
-  const xml = await (await fetch("./beijing.xml")).text();
+  // revalidate the small model files every load so redeploys show immediately
+  // (the 10 MB WASM is imported normally and stays cached)
+  const xml = await (await fetch("./beijing.xml", { cache: "no-cache" })).text();
   mujoco.FS.writeFile("/model.xml", xml);
   const model = mujoco.MjModel.loadFromXML("/model.xml");
   const data = new mujoco.MjData(model);
   mujoco.mj_forward(model, data);
-  const names = await (await fetch("./names.json")).json();
+  const names = await (await fetch("./names.json", { cache: "no-cache" })).json();
   const NB = names.bodies || {};
 
   const ngeom = model.ngeom;
