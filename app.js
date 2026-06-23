@@ -1,8 +1,9 @@
 // 北京微缩城市 — MuJoCo WASM (official google-deepmind mujoco-js) + Three.js
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { Sky } from "three/addons/objects/Sky.js";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
@@ -44,11 +45,9 @@ async function main() {
 
   // ---- three.js scene (MuJoCo is z-up; rotate a root group so +z -> +y) ----
   const scene = new THREE.Scene();
-  const sky = new THREE.Color(0xbcd6f0);
-  scene.background = sky;
-  scene.fog = new THREE.Fog(0xc3d8ef, 760, 2200);
+  scene.fog = new THREE.Fog(0xc4d6e8, 950, 3200);
 
-  const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 2, 6000);
+  const camera = new THREE.PerspectiveCamera(46, innerWidth / innerHeight, 2, 8000);
   camera.position.set(255, 215, 345);
 
   const renderer = new THREE.WebGLRenderer({ canvas: $("#c"), antialias: true });
@@ -56,7 +55,7 @@ async function main() {
   renderer.setSize(innerWidth, innerHeight);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.02;
+  renderer.toneMappingExposure = 0.74;
   if (SHADOWS) {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -64,9 +63,22 @@ async function main() {
     renderer.shadowMap.needsUpdate = true;
   }
 
-  // soft image-based lighting for nicer glass / metal
+  // ---- physical sky + sun: drives reflections, ambient IBL and the backdrop ----
+  const ELEV = 36, AZ = 142;
+  const sunDir = new THREE.Vector3().setFromSphericalCoords(
+    1, THREE.MathUtils.degToRad(90 - ELEV), THREE.MathUtils.degToRad(AZ));
+  const makeSky = () => {
+    const s = new Sky(); s.scale.setScalar(5000);
+    const u = s.material.uniforms;
+    u.turbidity.value = 4; u.rayleigh.value = 2.0;
+    u.mieCoefficient.value = 0.006; u.mieDirectionalG.value = 0.8;
+    u.sunPosition.value.copy(sunDir);
+    return s;
+  };
+  scene.add(makeSky());                                  // visible sky backdrop
   const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  const envScene = new THREE.Scene(); envScene.add(makeSky());
+  scene.environment = pmrem.fromScene(envScene).texture; // sky reflections + IBL
 
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.target.set(0, 8, 8);
@@ -77,22 +89,18 @@ async function main() {
   controls.maxDistance = 2000;
   controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
 
-  scene.add(new THREE.HemisphereLight(0xdcebff, 0x6b7480, 0.7));
-  scene.add(new THREE.AmbientLight(0xffffff, 0.14));   // low — GTAO supplies depth
-  const sun = new THREE.DirectionalLight(0xffeccf, 2.6);
-  sun.position.set(340, 360, 250);   // lower angle -> longer, readable shadows
-  const fill = new THREE.DirectionalLight(0xbcd2ec, 0.5);
-  fill.position.set(-260, 200, -200);
-  scene.add(fill);
+  scene.add(new THREE.HemisphereLight(0xcfe2f5, 0x70725a, 0.45));  // sky/ground fill
+  const sun = new THREE.DirectionalLight(0xfff1da, 2.4);
+  sun.position.copy(sunDir).multiplyScalar(900);
   if (SHADOWS) {
     sun.castShadow = true;
-    sun.shadow.mapSize.set(2048, 2048);
-    const d = 460;
+    sun.shadow.mapSize.set(4096, 4096);
+    const d = 470;
     const sc = sun.shadow.camera;
     sc.left = -d; sc.right = d; sc.top = d; sc.bottom = -d;
-    sc.near = 80; sc.far = 1500;
-    sun.shadow.bias = -0.0006;
-    sun.shadow.normalBias = 0.6;
+    sc.near = 80; sc.far = 2200;
+    sun.shadow.bias = -0.0004;
+    sun.shadow.normalBias = 0.5;
   }
   scene.add(sun);
 
@@ -119,32 +127,48 @@ async function main() {
   ground.receiveShadow = SHADOWS;
   root.add(ground);  // PlaneGeometry normal is +z, matches mujoco plane
 
-  // ---- bucket geoms by render primitive ----
-  const buckets = { box: [], sph: [], cyl: [] };  // sph=sphere+ellipsoid, cyl=cyl+capsule
-  for (let i = 0; i < ngeom; i++) {
-    const t = gtype[i];
-    if (t === T.BOX) buckets.box.push(i);
-    else if (t === T.SPHERE || t === T.ELLIPSOID) buckets.sph.push(i);
-    else if (t === T.CYLINDER || t === T.CAPSULE) buckets.cyl.push(i);
-    // plane handled above; others ignored
-  }
-
+  // ---- instanced meshes grouped by (primitive × material) for real PBR ----
   const cylGeo = new THREE.CylinderGeometry(1, 1, 1, SEG.c);
   cylGeo.rotateX(Math.PI / 2);  // axis -> z (matches mujoco cylinder local z)
-  const bases = {
+  const baseGeo = {
     box: new THREE.BoxGeometry(1, 1, 1),
     sph: new THREE.SphereGeometry(1, SEG.s[0], SEG.s[1]),
     cyl: cylGeo,
   };
-  const mat = () => new THREE.MeshStandardMaterial({
-    roughness: 0.68, metalness: 0.14, envMapIntensity: 0.9,
-  });
+  const primOf = (t) =>
+    t === T.BOX ? "box" :
+    (t === T.SPHERE || t === T.ELLIPSOID) ? "sph" :
+    (t === T.CYLINDER || t === T.CAPSULE) ? "cyl" : null;
+
+  const groups = new Map();   // "prim:matid" -> { prim, mk, list }
+  for (let i = 0; i < ngeom; i++) {
+    const prim = primOf(gtype[i]); if (!prim) continue;
+    const mk = gmatid[i], key = prim + ":" + mk;
+    let g = groups.get(key);
+    if (!g) { g = { prim, mk, list: [] }; groups.set(key, g); }
+    g.list.push(i);
+  }
+
+  // derive physically-based roughness/metalness/env from the MuJoCo material params
+  const mSpec = model.mat_specular, mShin = model.mat_shininess,
+        mRefl = model.mat_reflectance, mEmis = model.mat_emission;
+  const pbr = (mk) => {
+    if (mk < 0) return { rough: 0.7, metal: 0.08, env: 0.6, emis: 0 };
+    const rough = Math.min(1, Math.max(0.04, 1 - mShin[mk]));
+    const metal = Math.min(0.96, Math.max(0, mRefl[mk] * 1.7 + mSpec[mk] * 0.15));
+    return { rough, metal, env: 0.55 + mRefl[mk] * 1.0, emis: mEmis[mk] || 0 };
+  };
+  const hash = (n) => { const s = Math.sin(n * 12.9898) * 43758.5453; return s - Math.floor(s); };
 
   const m4 = new THREE.Matrix4(), sc = new THREE.Matrix4(), col = new THREE.Color();
-  const meshes = {};
-  for (const key of ["box", "sph", "cyl"]) {
-    const list = buckets[key];
-    const im = new THREE.InstancedMesh(bases[key], mat(), list.length);
+  const pickMeshes = [];
+  for (const { prim, mk, list } of groups.values()) {
+    const pp = pbr(mk);
+    const m = new THREE.MeshStandardMaterial({
+      roughness: pp.rough, metalness: pp.metal, envMapIntensity: pp.env,
+    });
+    if (pp.emis > 0) { m.emissive = new THREE.Color(0xffffff); m.emissiveIntensity = pp.emis; }
+    const im = new THREE.InstancedMesh(baseGeo[prim], m, list.length);
     im.userData.geom = list;  // instanceId -> geom index
     im.castShadow = SHADOWS;
     im.receiveShadow = SHADOWS;
@@ -163,16 +187,16 @@ async function main() {
       else { sx = sy = gsize[s]; sz = 2 * gsize[s + 1]; }  // cyl/capsule: r,r,length
       sc.makeScale(sx, sy, sz);
       im.setMatrixAt(k, m4.clone().multiply(sc));
-      const mi = gmatid[gi];
-      if (mi >= 0) col.setRGB(matrgba[mi * 4], matrgba[mi * 4 + 1], matrgba[mi * 4 + 2]);
+      if (mk >= 0) col.setRGB(matrgba[mk * 4], matrgba[mk * 4 + 1], matrgba[mk * 4 + 2]);
       else col.setRGB(grgba[gi * 4], grgba[gi * 4 + 1], grgba[gi * 4 + 2]);
+      col.multiplyScalar(0.9 + 0.2 * hash(gi));   // subtle per-instance brightness
       col.convertSRGBToLinear();
       im.setColorAt(k, col);
     }
     im.instanceMatrix.needsUpdate = true;
     if (im.instanceColor) im.instanceColor.needsUpdate = true;
     root.add(im);
-    meshes[key] = im;
+    pickMeshes.push(im);
   }
 
   // ---- post-processing: ground-contact ambient occlusion (desktop) ----
@@ -193,6 +217,8 @@ async function main() {
       rings: 2, samples: 16,
     });
     composer.addPass(gtao);
+    composer.addPass(new UnrealBloomPass(
+      new THREE.Vector2(innerWidth, innerHeight), 0.34, 0.5, 0.9));  // sun-glint glow
     composer.addPass(new OutputPass());
     composer.addPass(new SMAAPass(innerWidth, innerHeight));
   }
@@ -227,7 +253,7 @@ async function main() {
     ptr.x = (e.clientX / innerWidth) * 2 - 1;
     ptr.y = -(e.clientY / innerHeight) * 2 + 1;
     ray.setFromCamera(ptr, camera);
-    const hits = ray.intersectObjects([meshes.box, meshes.sph, meshes.cyl], false);
+    const hits = ray.intersectObjects(pickMeshes, false);
     for (const h of hits) {
       const gi = h.object.userData.geom[h.instanceId];
       const rec = NB[String(gbody[gi])];

@@ -10,10 +10,13 @@ relative geographic positions and rendered **live in the browser** by the
 official **MuJoCo WebAssembly** module (~22k geoms). Every landmark is modelled
 in depth (terraces, staircases, balustrades, bracket sets, curtain-wall mullion
 grids, ridge ornaments…); the generic fabric has podiums, balconies and rooftop
-plant. Rendering uses **GTAO ambient occlusion**, soft directional shadows,
-image-based lighting, SMAA and high-tessellation smooth curves, over a clean
-map-style ground with kerbed, lane-marked roads; fully **touch / mobile**
-friendly (AO/shadows auto-disabled on phones for speed).
+plant. Rendering aims for a **lifelike** look: a physical **Sky** drives the
+backdrop, sky reflections and image-based lighting; instances are grouped **by
+material** so glass/metal/water are genuinely reflective while stone/concrete
+stay matte (PBR derived from the MuJoCo material params); plus **GTAO ambient
+occlusion**, soft directional shadows, **bloom**, SMAA and high-tessellation
+smooth curves, over a kerbed, lane-marked road network. Fully **touch / mobile**
+friendly (heavy post-processing auto-disabled on phones for speed).
 
 🔗 **Live:** https://fly-pigth.github.io/beijing-mujoco/
 
