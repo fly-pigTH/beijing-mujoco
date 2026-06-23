@@ -7,9 +7,13 @@ multi-level 立交桥 interchanges) and **fully-labelled urban fabric**: *every*
 building is clickable and named (offices, malls, residential compounds, hutong
 courtyards), so **~158 named, clickable buildings** in all — placed at their real
 relative geographic positions and rendered **live in the browser** by the
-official **MuJoCo WebAssembly** module. High-tessellation smooth curves, soft
-shadows, image-based lighting and a clean map-style ground with kerbed,
-lane-marked roads; fully **touch / mobile** friendly.
+official **MuJoCo WebAssembly** module (~22k geoms). Every landmark is modelled
+in depth (terraces, staircases, balustrades, bracket sets, curtain-wall mullion
+grids, ridge ornaments…); the generic fabric has podiums, balconies and rooftop
+plant. Rendering uses **GTAO ambient occlusion**, soft directional shadows,
+image-based lighting, SMAA and high-tessellation smooth curves, over a clean
+map-style ground with kerbed, lane-marked roads; fully **touch / mobile**
+friendly (AO/shadows auto-disabled on phones for speed).
 
 🔗 **Live:** https://fly-pigth.github.io/beijing-mujoco/
 

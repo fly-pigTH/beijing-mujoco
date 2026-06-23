@@ -2,6 +2,11 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { SMAAPass } from "three/addons/postprocessing/SMAAPass.js";
 import loadMujoco from "./mujoco_wasm.js";
 
 const $ = (s) => document.querySelector(s);
@@ -16,7 +21,7 @@ const MOBILE = matchMedia("(pointer:coarse)").matches ||
 const SHADOWS = !MOBILE;
 // curve tessellation — high facet counts for smooth domes / towers / shells.
 // (one shared base geometry per primitive, so cost stays low even at 12k geoms)
-const SEG = MOBILE ? { s: [28, 18], c: 32 } : { s: [56, 36], c: 64 };
+const SEG = MOBILE ? { s: [24, 16], c: 28 } : { s: [40, 28], c: 48 };
 
 async function main() {
   // ---- load the official MuJoCo WebAssembly module ----
@@ -43,7 +48,7 @@ async function main() {
   scene.background = sky;
   scene.fog = new THREE.Fog(0xc3d8ef, 760, 2200);
 
-  const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 1, 6000);
+  const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 2, 6000);
   camera.position.set(255, 215, 345);
 
   const renderer = new THREE.WebGLRenderer({ canvas: $("#c"), antialias: true });
@@ -51,7 +56,7 @@ async function main() {
   renderer.setSize(innerWidth, innerHeight);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.04;
+  renderer.toneMappingExposure = 1.02;
   if (SHADOWS) {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -72,10 +77,13 @@ async function main() {
   controls.maxDistance = 2000;
   controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
 
-  scene.add(new THREE.HemisphereLight(0xdcebff, 0x67707a, 0.9));
-  scene.add(new THREE.AmbientLight(0xffffff, 0.22));
-  const sun = new THREE.DirectionalLight(0xfff3df, 2.2);
+  scene.add(new THREE.HemisphereLight(0xdcebff, 0x6b7480, 0.7));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.14));   // low — GTAO supplies depth
+  const sun = new THREE.DirectionalLight(0xffeccf, 2.6);
   sun.position.set(340, 360, 250);   // lower angle -> longer, readable shadows
+  const fill = new THREE.DirectionalLight(0xbcd2ec, 0.5);
+  fill.position.set(-260, 200, -200);
+  scene.add(fill);
   if (SHADOWS) {
     sun.castShadow = true;
     sun.shadow.mapSize.set(2048, 2048);
@@ -97,7 +105,7 @@ async function main() {
     const cv = document.createElement("canvas"); cv.width = cv.height = 512;
     const x = cv.getContext("2d");
     const grad = x.createRadialGradient(256, 256, 30, 256, 256, 360);
-    grad.addColorStop(0, "#d4cfc1"); grad.addColorStop(1, "#bdb8a9");
+    grad.addColorStop(0, "#cbc5b5"); grad.addColorStop(1, "#aaa493");
     x.fillStyle = grad; x.fillRect(0, 0, 512, 512);
     const t = new THREE.CanvasTexture(cv);
     t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
@@ -129,7 +137,7 @@ async function main() {
     cyl: cylGeo,
   };
   const mat = () => new THREE.MeshStandardMaterial({
-    roughness: 0.74, metalness: 0.12, envMapIntensity: 0.7,
+    roughness: 0.68, metalness: 0.14, envMapIntensity: 0.9,
   });
 
   const m4 = new THREE.Matrix4(), sc = new THREE.Matrix4(), col = new THREE.Color();
@@ -165,6 +173,28 @@ async function main() {
     if (im.instanceColor) im.instanceColor.needsUpdate = true;
     root.add(im);
     meshes[key] = im;
+  }
+
+  // ---- post-processing: ground-contact ambient occlusion (desktop) ----
+  // GTAO darkens crevices, building bases and where volumes meet, which makes
+  // the blocky primitives read with real depth/detail. SMAA gives clean edges.
+  let composer = null;
+  if (!MOBILE) {
+    composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+    const gtao = new GTAOPass(scene, camera, innerWidth, innerHeight);
+    gtao.output = GTAOPass.OUTPUT.Default;
+    gtao.updateGtaoMaterial({
+      radius: 4.5, distanceExponent: 1.0, thickness: 1.4,
+      scale: 1.4, samples: 16, distanceFallOff: 1.0, screenSpaceRadius: false,
+    });
+    gtao.updatePdMaterial({
+      lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 4, radiusExponent: 1,
+      rings: 2, samples: 16,
+    });
+    composer.addPass(gtao);
+    composer.addPass(new OutputPass());
+    composer.addPass(new SMAAPass(innerWidth, innerHeight));
   }
 
   // ---- click / tap -> landmark name + intro (with highlight) ----
@@ -230,6 +260,7 @@ async function main() {
   addEventListener("resize", () => {
     camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
     renderer.setSize(innerWidth, innerHeight);
+    if (composer) composer.setSize(innerWidth, innerHeight);
   });
 
   const recs = Object.values(NB);
@@ -247,7 +278,8 @@ async function main() {
   (function animate() {
     requestAnimationFrame(animate);
     controls.update();
-    renderer.render(scene, camera);
+    if (composer) composer.render();
+    else renderer.render(scene, camera);
   })();
 }
 
